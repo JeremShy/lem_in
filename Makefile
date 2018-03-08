@@ -1,4 +1,9 @@
-SRC_NAME = main.c
+SRC_NAME = main.c \
+			parsing.c \
+			utils.c \
+			parse_states.c \
+			ft_is_x.c
+
 OBJ_PATH = ./obj/
 
 LIB_SRC_DIR = ./libsrcs/
