@@ -39,11 +39,15 @@ typedef struct	s_parse
 	t_room		*rooms;
 	size_t		nbr_ants;
 	size_t		nbr_rooms;
+	size_t		nbr_rooms_max; // Nbr of \n in the file, size of  rooms[]
 	int64_t		start_room_id;
 	int64_t		end_room_id;
 	size_t		nbr_ants_start;
 	size_t		nbr_ants_end;
 } 				t_parse;
+
+void	free_dtab(char	**tab);
+size_t	count_dtab_len(char **tab);
 
 typedef void (*t_state_function)(t_state *, t_parse *, char **);
 

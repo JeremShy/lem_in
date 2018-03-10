@@ -31,22 +31,50 @@ void	state_machine(char *input, t_parse *parse_structure)
 	ptr = input;
 	while (ptr)
 	{
-
 		(*(table[state]))(&state, parse_structure, &ptr);
 		if (parse_structure->error)
 			print_and_exit(2);
 	}
 }
 
+void	detect_errors(char *input)
+{
+	/*
+	-> + d'arguments que prevu
+	*/
+}
+
+size_t	count_rooms(char *input)
+{
+	size_t	ret;
+
+	ret = 0;
+	while (input != NULL)
+	{
+		input = ft_strchr(input, '\n');
+		ret++;
+		if (input)
+			input++;
+	}
+	return (ret);
+}
+
 t_parse	parsing(void)
 {
 	t_parse parse_structure;
 	char	*input;
+	size_t	nbr_rooms_max;
 
 	ft_bzero(&parse_structure, sizeof(parse_structure));
 	parse_structure.start_room_id = -1;
 	parse_structure.end_room_id = -1;
 	input = get_input(0);
+	parse_structure.nbr_rooms_max = count_rooms(input);
+	if ((parse_structure.rooms = malloc(sizeof(t_room) * (parse_structure.nbr_rooms_max + 1))) == 0)
+	{
+		parse_structure.error = 1;
+		return parse_structure;
+	}
 
 	state_machine(input, &parse_structure);
 	return (parse_structure);
