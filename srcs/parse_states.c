@@ -22,10 +22,7 @@ void	parse_ants(t_state *state, t_parse *parse_structure, char **ptr)
 	}
 	nbr = ft_atoi(*ptr);
 	if (nbr <= 0)
-	{
-		parse_structure->error = 1;
-		return ;
-	}
+		return set_error(parse_structure);
 	parse_structure->nbr_ants = nbr;
 	parse_structure->nbr_ants_start = nbr;
 	printf("Nbr ants : %zu\n", parse_structure->nbr_ants);
@@ -67,13 +64,17 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr)
 	static	int	current = 0;
 	char	**tab;
 	int8_t	ret;
+	int8_t	count;
+	int8_t	flag_start_end;
 
+ 	flag_start_end = 0;
 	if (**ptr == '#')
 	{
 		if ((ret = is_command(*ptr)))
 		{
 			if (parse_rooms_is_command(ptr, ret, parse_structure, current) == 0)
 				return ;
+			flag_start_end = 1;
 		}
 		else
 		{
@@ -81,12 +82,29 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr)
 			return ;
 		}
 	}
-	tab = ft_strsplit(*ptr, ' ');
+	tab = ft_strsplit_lem_in(*ptr, ' ');
  	if (!tab)
+		return set_error(parse_structure);
+	if ((count = count_dtab_len(tab)) != 3)
 	{
-		parse_structure->error = 1;
-		return ;
+		free_dtab(tab);
+		if (!flag_start_end && count == 1)
+		{
+			*state = STATE_PIPES;
+			return ;
+		}
+		return set_error(parse_structure);
 	}
+	if (!is_nombre_entier(tab[1]) || !is_nombre_entier(tab[2]))
+	{
+		free_dtab(tab);
+		return set_error(parse_structure);
+	}
+	parse_structure->rooms[current] = (t_room){current, 0, ft_strdup(tab[0]),
+		ft_atoi(tab[1]), ft_atoi(tab[2]), NULL};
+	printf("Creating room %d with name = [%s], and coords = (%d, %d)\n", current, parse_structure->rooms[current].name, parse_structure->rooms[current].x, parse_structure->rooms[current].y);
+	free_dtab(tab);
+	go_to_next_line(ptr);
 	current++;
 }
 

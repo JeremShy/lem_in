@@ -22,7 +22,9 @@ typedef struct	s_room
 {
 	int64_t				id;
 	int8_t				occupied;
-	int8_t				*name;
+	char				*name;
+	int32_t				x;
+	int32_t				y;
 	struct s_pipe		*pipes;
 }				t_room;
 
@@ -48,6 +50,8 @@ typedef struct	s_parse
 
 void	free_dtab(char	**tab);
 size_t	count_dtab_len(char **tab);
+void	set_error(t_parse *parse_structure);
+void	print_dtab(char **tab);
 
 typedef void (*t_state_function)(t_state *, t_parse *, char **);
 
@@ -59,6 +63,7 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr);
 void	parse_pipes(t_state *state, t_parse *parse_structure, char **ptr);
 
 int8_t	is_command(char *ptr);
-
+int8_t	is_nombre_entier(char *str);
+char	**ft_strsplit_lem_in(char const *s, char c);
 
 #endif

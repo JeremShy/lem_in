@@ -13,6 +13,12 @@ void	print_and_exit(int nbr)
 	exit(nbr);
 }
 
+void	set_error(t_parse *parse_structure)
+{
+	parse_structure->error = 1;
+	return ;
+}
+
 void	free_dtab(char	**tab)
 {
 	int	i;
@@ -28,10 +34,21 @@ void	free_dtab(char	**tab)
 
 size_t	count_dtab_len(char **tab)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while(tab[i])
 		i++;
 	return (i);
+}
+
+void	print_dtab(char **tab)
+{
+	size_t	i = 0;
+
+	while (tab[i])
+	{
+		printf("tab[%zu] = %s\n", i, tab[i]);
+		i++;
+	}
 }

@@ -8,3 +8,21 @@ int8_t	is_command(char *ptr)
 		return (2);
 	return (0);
 }
+
+int8_t	is_nombre_entier(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str[i])
+		return (0);
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
