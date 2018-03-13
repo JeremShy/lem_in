@@ -53,6 +53,7 @@ void	free_dtab(char	**tab);
 size_t	count_dtab_len(char **tab);
 void	set_error(t_parse *parse_structure);
 void	print_dtab(char **tab);
+size_t		count_char(char c, const char *str);
 
 typedef void (*t_state_function)(t_state *, t_parse *, char **);
 
@@ -68,6 +69,7 @@ int8_t	is_nombre_entier(char *str);
 char	**ft_strsplit_lem_in(char const *s, char c);
 
 int	name_already_exists(const char *name, t_room const *rooms, size_t nbr_rooms);
+t_room	*find_room(const char *name, t_room *rooms, size_t nbr_rooms);
 
 
 #endif

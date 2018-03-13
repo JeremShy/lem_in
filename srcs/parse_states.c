@@ -91,6 +91,7 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr)
 		if (!flag_start_end && count == 1)
 		{
 			*state = STATE_PIPES;
+			parse_structure->nbr_rooms = current;
 			return ;
 		}
 		return set_error(parse_structure);
@@ -116,11 +117,29 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr)
 void	parse_pipes(t_state *state, t_parse *parse_structure, char **ptr)
 {
 	char	**split;
+	t_room	*r1;
+	t_room	*r2;
 
-	if (count_char('-', *ptr))
-
+	if (count_char('-', *ptr) != 1)
+		return set_error(parse_structure);
 	printf("in parse_pipes\n");
+	if ((split = ft_strsplit_lem_in(*ptr, '-')) == NULL)
+		return set_error(parse_structure);
+	if (count_dtab_len(split) != 2)
+	{
+		free_dtab(split);
+		return (set_error(parse_structure));
+	}
 	*ptr = NULL;
 
-
+	if ((r1 = find_room(split[0], parse_structure->rooms, parse_structure->nbr_rooms)) == NULL)
+	{
+		free_dtab(split);
+		return (set_error(parse_structure));
+	}
+	if ((r2 = find_room(split[1], parse_structure->rooms, parse_structure->nbr_rooms)) == NULL)
+	{
+		free_dtab(split);
+		return (set_error(parse_structure));
+	}
 }
