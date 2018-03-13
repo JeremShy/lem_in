@@ -1,5 +1,18 @@
 #include <lem_in.h>
 
+size_t		count_char(char c, const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			i++;
+	}
+	return (i);
+}
+
 void	print_error_and_exit(int nbr)
 {
 	perror("lem_in");

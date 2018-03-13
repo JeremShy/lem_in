@@ -6,12 +6,11 @@
 /*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 18:24:48 by jcamhi            #+#    #+#             */
-/*   Updated: 2018/03/10 20:02:43 by jcamhi           ###   ########.fr       */
+/*   Updated: 2018/03/13 16:37:16 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <stdlib.h>
+#include <lem_in.h>
 
 static	int		ft_strcount(char const *s, char const c)
 {
@@ -32,7 +31,7 @@ static	int		ft_strcount(char const *s, char const c)
 	return (count);
 }
 
-static	int		poulet(size_t i, size_t j, char const *s, char c)
+static	int		size_word(size_t i, size_t j, char const *s, char c)
 {
 	while (s[i + j] != c && s[i + j] != '\0' && s[i + j] != '\n')
 		j++;
@@ -50,14 +49,14 @@ static	char	**ft_fln(char const *s, char **res, size_t *x, char c)
 	{
 		while (s[i] == c && s[i] != '\0' && s[i] != '\n')
 			i++;
-		j = 0;
-		j = poulet(i, j, s, c);
-		if (s[i + j] != '\0' || s[i + j] != '\n' || s[i + j - 1] != c)
+		if (s[i] != '\0' && s[i] != '\n')
 		{
+			j = 0;
+			j = size_word(i, j, s, c);
 			res[*x] = ft_strsub(s, i, j);
 			*x = *x + 1;
+			i += j;
 		}
-		i += j;
 	}
 	return (res);
 }
@@ -77,6 +76,5 @@ char			**ft_strsplit_lem_in(char const *s, char c)
 	}
 	res = ft_fln(s, res, &x, c);
 	res[x] = NULL;
-	print_dtab(res);
 	return (res);
 }

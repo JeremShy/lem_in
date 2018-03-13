@@ -9,6 +9,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
+# include <stdio.h>
 # define BUFF_SIZE_LEM 2
 
 typedef enum e_state
@@ -65,5 +66,8 @@ void	parse_pipes(t_state *state, t_parse *parse_structure, char **ptr);
 int8_t	is_command(char *ptr);
 int8_t	is_nombre_entier(char *str);
 char	**ft_strsplit_lem_in(char const *s, char c);
+
+int	name_already_exists(const char *name, t_room const *rooms, size_t nbr_rooms);
+
 
 #endif
