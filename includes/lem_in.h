@@ -47,6 +47,7 @@ typedef struct	s_parse
 	int64_t		end_room_id;
 	size_t		nbr_ants_start;
 	size_t		nbr_ants_end;
+	char		*input;
 } 				t_parse;
 
 void	free_dtab(char	**tab);
@@ -58,7 +59,7 @@ size_t		count_char(char c, const char *str);
 
 typedef void (*t_state_function)(t_state *, t_parse *, char **);
 
-t_parse	parsing(void);
+void	parsing(t_parse *infos);
 void	print_error_and_exit(int	nbr);
 void	print_and_exit(int	nbr);
 void	parse_ants(t_state *, t_parse *, char **);
@@ -80,6 +81,7 @@ int8_t	add_pipe_to_rooms(t_room *r1, t_room *r2);
 void	print_pipes_for_all_rooms(t_room *rooms, size_t nbr_rooms);
 void	print_pipes(t_room *room);
 
+void	algorithm(t_parse *parse_structure);
 
 #endif
                                                               

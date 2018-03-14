@@ -25,7 +25,7 @@ void	parse_ants(t_state *state, t_parse *parse_structure, char **ptr)
 		return set_error(parse_structure);
 	parse_structure->nbr_ants = nbr;
 	parse_structure->nbr_ants_start = nbr;
-	printf("Nbr ants : %zu\n", parse_structure->nbr_ants);
+	// printf("Nbr ants : %zu\n", parse_structure->nbr_ants);
 	*state = STATE_ROOMS;
 	go_to_next_line(ptr);
 }
@@ -104,7 +104,7 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr)
 		return (set_error_and_free(tab, parse_structure));
 	parse_structure->rooms[current] = (t_room){current, 0, ft_strdup(tab[0]),
 		ft_atoi(tab[1]), ft_atoi(tab[2]), NULL};
-	printf("Creating room %d with name = [%s], and coords = (%d, %d)\n", current, parse_structure->rooms[current].name, parse_structure->rooms[current].x, parse_structure->rooms[current].y);
+	// printf("Creating room %d with name = [%s], and coords = (%d, %d)\n", current, parse_structure->rooms[current].name, parse_structure->rooms[current].x, parse_structure->rooms[current].y);
 	free_dtab(tab);
 	go_to_next_line(ptr);
 	current++;
@@ -116,7 +116,6 @@ void	parse_pipes(t_state *state, t_parse *parse_structure, char **ptr)
 	t_room	*r1;
 	t_room	*r2;
 
-	printf("pouet\n");
 	if (**ptr == '#')
 	{
 		if (is_command(*ptr))
@@ -136,7 +135,7 @@ void	parse_pipes(t_state *state, t_parse *parse_structure, char **ptr)
 		return set_error(parse_structure);
 	if (count_dtab_len(split) != 2)
 		return set_error_and_free(split, parse_structure);
-	printf("in parse_pipes\n");
+	// printf("in parse_pipes\n");
 	if ((r1 = find_room(split[0], parse_structure->rooms, parse_structure->nbr_rooms)) == NULL)
 		return set_error_and_free(split, parse_structure);
 	if ((r2 = find_room(split[1], parse_structure->rooms, parse_structure->nbr_rooms)) == NULL)

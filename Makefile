@@ -1,21 +1,22 @@
-SRC_NAME = main.c \
-			parsing.c \
-			utils.c \
-			parse_states.c \
-			ft_is_x.c \
-			ft_strsplit_lem_in.c \
-			rooms.c \
-			pipes.c \
-			debug.c
+PARSING_DIR	= parsing
+ALGO_DIR	= algo
+
+SRC_NAME = $(PARSING_DIR)/ft_is_x.c \
+			$(PARSING_DIR)/ft_strsplit_lem_in.c \
+			$(PARSING_DIR)/parse_states.c \
+			$(PARSING_DIR)/parsing.c \
+			$(PARSING_DIR)/pipes.c \
+			$(PARSING_DIR)/rooms.c \
+			$(PARSING_DIR)/utils.c \
+			$(ALGO_DIR)/algo.c \
+			debug.c \
+			main.c
+
 
 OBJ_PATH = ./obj/
-
 LIB_SRC_DIR = ./libsrcs/
-
 INC_PATH = ./includes ./$(LIB_SRC_DIR)libft/includes ./$(LIB_SRC_DIR)ft_printf/includes
-
 SRC_PATH = ./srcs/
-
 NAME = lem_in
 
 CC = gcc
@@ -42,7 +43,7 @@ $(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L $(LIB_DIR) $(LFLAGS) -o $@
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH) $(OBJ_PATH)/$(PARSING_DIR) $(OBJ_PATH)/$(ALGO_DIR)
 	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
 clean:
