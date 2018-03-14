@@ -70,6 +70,6 @@ void	parsing(t_parse *parse_structure)
 		parse_structure->error = 1;
 		return ;
 	}
-
+	ft_bzero(parse_structure->rooms, sizeof(t_room) * (parse_structure->nbr_rooms_max + 1));
 	state_machine(parse_structure->input, parse_structure);
 }

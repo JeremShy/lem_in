@@ -27,6 +27,7 @@ typedef struct	s_room
 	char				*name;
 	int32_t				x;
 	int32_t				y;
+	size_t				distance;
 	struct s_pipe		*pipes;
 }				t_room;
 
@@ -80,8 +81,9 @@ int8_t	add_pipe_to_rooms(t_room *r1, t_room *r2);
 
 void	print_pipes_for_all_rooms(t_room *rooms, size_t nbr_rooms);
 void	print_pipes(t_room *room);
+void	print_room(t_room *room);
+void	print_all_rooms(t_room *rooms, size_t nbr_rooms);
 
 void	algorithm(t_parse *parse_structure);
 
 #endif
-                                                              

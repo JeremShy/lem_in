@@ -9,6 +9,7 @@ SRC_NAME = $(PARSING_DIR)/ft_is_x.c \
 			$(PARSING_DIR)/rooms.c \
 			$(PARSING_DIR)/utils.c \
 			$(ALGO_DIR)/algo.c \
+			$(ALGO_DIR)/find.c \
 			debug.c \
 			main.c
 
