@@ -3,14 +3,17 @@
 size_t		count_char(char c, const char *str)
 {
 	size_t	i;
+	size_t	count;
 
 	i = 0;
-	while (str[i])
+	count = 0;
+	while (str[i] && str[i] != '\n')
 	{
 		if (str[i] == c)
-			i++;
+			count++;
+		i++;
 	}
-	return (i);
+	return (count);
 }
 
 void	print_error_and_exit(int nbr)
@@ -64,4 +67,11 @@ void	print_dtab(char **tab)
 		printf("tab[%zu] = %s\n", i, tab[i]);
 		i++;
 	}
+}
+
+void set_error_and_free(char **split, t_parse *parse_structure)
+{
+	free_dtab(split);
+	parse_structure->error = 1;
+	return ;
 }

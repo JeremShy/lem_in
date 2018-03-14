@@ -2,7 +2,7 @@
 
 static void	go_to_next_line(char **ptr)
 {
-	while (**ptr != '\n' && **ptr)
+	while (**ptr && **ptr != '\n')
 		(*ptr)++;
 	if (**ptr)
 		(*ptr)++;
@@ -90,6 +90,8 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr)
 		free_dtab(tab);
 		if (!flag_start_end && count == 1)
 		{
+			if (parse_structure->start_room_id == -1 || parse_structure->end_room_id == -1)
+				return (set_error(parse_structure));
 			*state = STATE_PIPES;
 			parse_structure->nbr_rooms = current;
 			return ;
@@ -97,15 +99,9 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr)
 		return set_error(parse_structure);
 	}
 	if (!is_nombre_entier(tab[1]) || !is_nombre_entier(tab[2]))
-	{
-		free_dtab(tab);
-		return set_error(parse_structure);
-	}
+		return (set_error_and_free(tab, parse_structure));
 	if (name_already_exists(tab[0], parse_structure->rooms, current))
-	{
-		free_dtab(tab);
-		return set_error(parse_structure);
-	}
+		return (set_error_and_free(tab, parse_structure));
 	parse_structure->rooms[current] = (t_room){current, 0, ft_strdup(tab[0]),
 		ft_atoi(tab[1]), ft_atoi(tab[2]), NULL};
 	printf("Creating room %d with name = [%s], and coords = (%d, %d)\n", current, parse_structure->rooms[current].name, parse_structure->rooms[current].x, parse_structure->rooms[current].y);
@@ -120,26 +116,40 @@ void	parse_pipes(t_state *state, t_parse *parse_structure, char **ptr)
 	t_room	*r1;
 	t_room	*r2;
 
+	printf("pouet\n");
+	if (**ptr == '#')
+	{
+		if (is_command(*ptr))
+			return set_error(parse_structure);
+		go_to_next_line(ptr);
+		if (**ptr == '\0')
+		{
+			*state = STATE_END;
+			return ;
+		}
+		return ;
+	}
+
 	if (count_char('-', *ptr) != 1)
 		return set_error(parse_structure);
-	printf("in parse_pipes\n");
 	if ((split = ft_strsplit_lem_in(*ptr, '-')) == NULL)
 		return set_error(parse_structure);
 	if (count_dtab_len(split) != 2)
-	{
-		free_dtab(split);
-		return (set_error(parse_structure));
-	}
-	*ptr = NULL;
-
+		return set_error_and_free(split, parse_structure);
+	printf("in parse_pipes\n");
 	if ((r1 = find_room(split[0], parse_structure->rooms, parse_structure->nbr_rooms)) == NULL)
-	{
-		free_dtab(split);
-		return (set_error(parse_structure));
-	}
+		return set_error_and_free(split, parse_structure);
 	if ((r2 = find_room(split[1], parse_structure->rooms, parse_structure->nbr_rooms)) == NULL)
+		return set_error_and_free(split, parse_structure);
+	if (r1 == r2)
+		return set_error_and_free(split, parse_structure);
+	if (!add_pipe_to_rooms(r1, r2))
+		return set_error_and_free(split, parse_structure);
+	go_to_next_line(ptr);
+	if (**ptr == '\0')
 	{
-		free_dtab(split);
-		return (set_error(parse_structure));
+		*state = STATE_END;
+		return ;
 	}
+
 }

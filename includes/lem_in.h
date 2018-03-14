@@ -16,7 +16,8 @@ typedef enum e_state
 {
 	STATE_ANTS,
 	STATE_ROOMS,
-	STATE_PIPES
+	STATE_PIPES,
+	STATE_END
 }	t_state;
 
 typedef struct	s_room
@@ -31,8 +32,7 @@ typedef struct	s_room
 
 typedef struct	s_pipe
 {
-	t_room			*cote1;
-	t_room			*cote2;
+	t_room			*other_side;
 	struct s_pipe	*next;
 }				t_pipe;
 
@@ -52,6 +52,7 @@ typedef struct	s_parse
 void	free_dtab(char	**tab);
 size_t	count_dtab_len(char **tab);
 void	set_error(t_parse *parse_structure);
+void	set_error_and_free(char **split, t_parse *parse_structure);
 void	print_dtab(char **tab);
 size_t		count_char(char c, const char *str);
 
@@ -68,8 +69,17 @@ int8_t	is_command(char *ptr);
 int8_t	is_nombre_entier(char *str);
 char	**ft_strsplit_lem_in(char const *s, char c);
 
-int	name_already_exists(const char *name, t_room const *rooms, size_t nbr_rooms);
+int8_t	coords_already_exist(int x, int y, t_room const *rooms, size_t nbr_rooms);
+int8_t	name_already_exists(const char *name, t_room const *rooms, size_t nbr_rooms);
 t_room	*find_room(const char *name, t_room *rooms, size_t nbr_rooms);
+
+t_pipe	*create_pipe(t_room *other_side);
+int8_t	add_pipe(t_pipe **pipes, t_pipe *to_add);
+int8_t	add_pipe_to_rooms(t_room *r1, t_room *r2);
+
+void	print_pipes_for_all_rooms(t_room *rooms, size_t nbr_rooms);
+void	print_pipes(t_room *room);
 
 
 #endif
+                                                              

@@ -4,7 +4,9 @@ SRC_NAME = main.c \
 			parse_states.c \
 			ft_is_x.c \
 			ft_strsplit_lem_in.c \
-			rooms.c
+			rooms.c \
+			pipes.c \
+			debug.c
 
 OBJ_PATH = ./obj/
 
