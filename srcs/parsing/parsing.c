@@ -26,7 +26,7 @@ void	state_machine(char *input, t_parse *parse_structure)
 	t_state	state;
 	char	*ptr;
 
-	ft_memcpy(&table, (t_state_function[]){&parse_ants, &parse_rooms, &parse_pipes, NULL}, sizeof(table));
+	ft_memcpy(&table, (t_state_function[]){&parse_ants, &parse_rooms, &parse_pipes}, sizeof(table));
 	state = STATE_ANTS;
 	ptr = input;
 

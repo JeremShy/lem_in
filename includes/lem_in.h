@@ -23,7 +23,8 @@ typedef enum e_state
 typedef struct	s_room
 {
 	int64_t				id;
-	int8_t				occupied;
+	int8_t				used;
+	size_t				precedent_id;
 	char				*name;
 	int32_t				x;
 	int32_t				y;
@@ -50,6 +51,16 @@ typedef struct	s_parse
 	size_t		nbr_ants_end;
 	char		*input;
 } 				t_parse;
+
+typedef struct s_path {
+	size_t	size;
+	t_room	**path; // array of rooms from end to start
+}				t_path;
+
+typedef struct s_path_container {
+	t_path	*path;
+	struct s_path_container	*next;
+}				t_path_container;
 
 void	free_dtab(char	**tab);
 size_t	count_dtab_len(char **tab);

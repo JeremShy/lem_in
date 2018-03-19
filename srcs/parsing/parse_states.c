@@ -102,8 +102,8 @@ void	parse_rooms(t_state *state, t_parse *parse_structure, char **ptr)
 		return (set_error_and_free(tab, parse_structure));
 	if (name_already_exists(tab[0], parse_structure->rooms, current))
 		return (set_error_and_free(tab, parse_structure));
-	parse_structure->rooms[current] = (t_room){current, 0, ft_strdup(tab[0]),
-		ft_atoi(tab[1]), ft_atoi(tab[2]), NULL};
+	parse_structure->rooms[current] = (t_room){current, 0, 0, ft_strdup(tab[0]),
+		ft_atoi(tab[1]), ft_atoi(tab[2]), 0, NULL};
 	// printf("Creating room %d with name = [%s], and coords = (%d, %d)\n", current, parse_structure->rooms[current].name, parse_structure->rooms[current].x, parse_structure->rooms[current].y);
 	free_dtab(tab);
 	go_to_next_line(ptr);

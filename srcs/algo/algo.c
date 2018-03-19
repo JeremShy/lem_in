@@ -42,7 +42,7 @@ int8_t	explore_and_set_with_nbr(size_t to_set, t_parse *parse_structure)
 	i = 0;
 	while (i < parse_structure->nbr_rooms)
 	{
-		if (parse_structure->rooms[i].distance == to_set - 1)
+		if (parse_structure->rooms[i].distance == to_set - 1 && (int64_t)i != parse_structure->end_room_id)
 		{
 			tmp = update_all_around(parse_structure->rooms + i, parse_structure);
 			if (tmp == 1)
@@ -62,22 +62,24 @@ void	set_distances(t_parse *parse_structure)
 	int8_t	tmp;  // -1 = no room, 0 = rooms, 1 = end encountered
 
 	start = parse_structure->rooms + parse_structure->start_room_id;
-	ft_printf("Start room : \n");
-	print_room(start);
 	actual_distance = 1;
 	while (42)
 	{
 		tmp = explore_and_set_with_nbr(actual_distance, parse_structure);
-		if (tmp == 1)
-			return;
-		else if (tmp == -1)
+		if (tmp == -1 && parse_structure->rooms[parse_structure->end_room_id].distance == 0)
 			print_error_and_exit(5);
+		else if (tmp == -1)
+			return ;
 		actual_distance++;
 	}
 }
 
 void	algorithm(t_parse *parse_structure)
 {
+	t_path_container *container;
+
 	set_distances(parse_structure);
 	print_all_rooms(parse_structure->rooms, parse_structure->nbr_rooms);
+
 }
+]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
