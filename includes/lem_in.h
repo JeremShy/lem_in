@@ -47,6 +47,7 @@ typedef struct	s_parse
 	size_t		nbr_rooms_max; // Nbr of \n in the file, size of  rooms[]
 	int64_t		start_room_id;
 	int64_t		end_room_id;
+	size_t		max_paths;
 	size_t		nbr_ants_start;
 	size_t		nbr_ants_end;
 	char		*input;
@@ -54,13 +55,13 @@ typedef struct	s_parse
 
 typedef struct s_path {
 	size_t	size;
-	t_room	**path; // array of rooms from end to start
+	t_room	**rooms; // array of rooms pointers from end to start (*rooms)[]
 }				t_path;
 
-typedef struct s_path_container {
-	t_path	*path;
-	struct s_path_container	*next;
-}				t_path_container;
+typedef struct 	s_solution {
+	t_path		*paths; // Tableau de chemins
+	size_t		nbr_paths;
+}				t_solution;
 
 void	free_dtab(char	**tab);
 size_t	count_dtab_len(char **tab);

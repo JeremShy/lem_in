@@ -31,7 +31,7 @@ void	print_room(t_room *room)
 	ft_printf("---------------- Printing room named [%s] -----------------\n", room->name);
 	ft_printf("|\tid\t\t=\t\t%-16d|\n", room->id);
 	ft_printf("|\tdistance\t=\t\t%-16d|\n", room->distance);
-	ft_printf("|\toccupied\t=\t\t%-16s|\n", room->occupied == 1 ? "yes" : "no");
+	ft_printf("|\tused\t\t=\t\t%-16s|\n", room->used == 1 ? "yes" : "no");
 	ft_printf("---------------------------------------------------------\n");
 }
 

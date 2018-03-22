@@ -1,4 +1,67 @@
-Soit : Garder l'algo comme ça
-Soit : Le modifier pour avoir encore plus de chemins possibles
+// Soit : Garder l'algo comme ça
+// Soit : Le modifier pour avoir encore plus de chemins possibles
 
-Verifier si Overflow dans les id dans le parsing
+// Verifier si Overflow dans les id dans le parsing
+
+
+// ALGO:
+
+main()
+{
+	t_room **chemins
+	while (y a des chemins au debut)
+	{
+		add_chemin(chemins, function(debut, occupied_a_zero, chemin_vide));
+	}
+	t_room *bon_chemin = trouver_le_meilleur_chemin(chemins)
+	delete_all_except(chemins, bon_chemin);
+}
+
+t_room **function(t_room *debut, int8_t	*occupied, t_room *chemin) // renvoie un tableau de chemins
+{
+	t_room **chemins // un tableau de chemins
+
+	if (y a des choix)
+	{
+		while (y a des choix)
+		{
+			copy = memdup(occupied, sizeo...)
+			copychemin = copy_chemin(chemin);
+			copy[debut->id] = 1
+			add_room(chemin, choix);
+			add_solution(chemins, function(choix, copy, chemin)); // on ajoute les chemins des recursions suivantes au tableau
+			// Si solution null add solution doit e pas l'ajouter
+			free(copy);
+		}
+		return (chemins); // on retourne le tableau de chemins
+	}
+	else
+	{
+		while (y a pas de choix ET on est pas a la fin)
+		{
+			add_room(chemin, debut);
+			debut = next
+		}
+		si on est a la fin
+			return (chemins)
+		else
+		{
+			while (y a des choix)
+			{
+				copy = memdup(occupied, sizeo...)
+				copychemin = copy_chemin(chemin);
+				copy[debut->id] = 1
+				add_room(chemin, choix);
+				add_solution(chemins, function(choix, copy, chemin)); // on ajoute les chemins des recursions suivantes au tableau
+				free(copy);
+			}
+		}
+	}
+}
+
+
+add_solution(t_room **dst, t_room **src)
+{
+	if (src a pas de solution)
+		return ;
+}

@@ -74,12 +74,73 @@ void	set_distances(t_parse *parse_structure)
 	}
 }
 
-void	algorithm(t_parse *parse_structure)
+void	explore_all_path(t_parse *parse_structure)
 {
-	t_path_container *container;
-
-	set_distances(parse_structure);
-	print_all_rooms(parse_structure->rooms, parse_structure->nbr_rooms);
 
 }
-]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+
+void	get_max_path(t_parse *parse_structure)
+{
+	size_t		pipe_start;
+	size_t		pipe_end;
+	t_pipe		*ptr;
+
+	pipe_start = 0;
+	pipe_end = 0;
+	ptr = parse_structure->rooms[parse_structure->start_room_id].pipes;
+	while (ptr)
+	{
+		pipe_start++;
+		ptr = ptr->next;
+	}
+	ptr = parse_structure->rooms[parse_structure->end_room_id].pipes;
+	while (ptr)
+	{
+		pipe_end++;
+		ptr = ptr->next;
+	}
+	if (pipe_start > pipe_end)
+		parse_structure->max_paths = pipe_end;
+	else
+		parse_structure->max_paths = pipe_start;
+}
+
+void	algorithm(t_parse *parse_structure)
+{
+	set_distances(parse_structure);
+	print_all_rooms(parse_structure->rooms, parse_structure->nbr_rooms);
+	get_max_path(parse_structure);
+	explore_all_path(parse_structure);
+}
+
+// solution*	backtracking(t_room *depart, t_room *direction, t_path *chemin)
+// {
+// 	 if (!direction && y a plusieurs pipe)
+// 	 {
+// 		 solution *accumulateur;
+// 		 while (y a des pipes)
+// 		 	accumulateur.add(backtracking(depart, pipe));
+// 		return (accumulateur);
+// 	 }
+// 	 else if (direction)
+// 	 {
+// 		 on avance de un
+// 		 chemin.add(depart);
+// 	 }
+// 	 while (y a pas plusieurs pipe)
+// 	 {
+// 		 on avance
+// 		 on ajoute la room en court au chemin
+// 	 }
+// 	 if (on est a la fin)
+// 	 {
+// 		return (chemin);
+// 	 }
+// 	 else // Alors on a plusieurs pipes
+// 	 {
+// 		 solution *accumulateur;
+// 		 while (y a des pipes)
+// 		 	accumulateur.add(backtracking(depart, pipe));
+// 		return (accumulateur);
+// 	 }
+// }
